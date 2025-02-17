@@ -3,6 +3,7 @@ fork from openWebGal
 
 已经实现:  
 1. 切换场景时发送当前场景名称
+   
 TODO LIST:
 1. 接受websocket的数据
 2. 用websocket的数据进行分支选择, 实现前后端分离
