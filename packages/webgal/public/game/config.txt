@@ -1,5 +1,5 @@
 Game_name:欢迎使用WebGAL！;
-Game_key:0f87dstRg;
-Title_img:WebGAL_New_Enter_Image.png;
-Title_bgm:s_Title.mp3;
-Game_Logo:WebGalEnter.png;
+Game_key:9804d379595c7e8;
+Title_img:2025-01-25_09.37.12.png;
+Title_bgm:C418 & Protostar - Aria Math (Protostar Remix).flac;
+Textbox_theme:imss;

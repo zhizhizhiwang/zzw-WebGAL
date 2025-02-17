@@ -4,7 +4,7 @@ import { logger } from '../../util/logger';
 import { nextSentence } from '@/Core/controller/gamePlay/nextSentence';
 import uniqWith from 'lodash/uniqWith';
 import { scenePrefetcher } from '@/Core/util/prefetcher/scenePrefetcher';
-
+import { WebSocketClient } from '../../util/WebSocket'
 import { WebGAL } from '@/Core/WebGAL';
 
 /**
@@ -17,6 +17,7 @@ export const callScene = (sceneUrl: string, sceneName: string) => {
     return;
   }
   WebGAL.sceneManager.lockSceneWrite = true;
+  const socket = new WebSocketClient();
   // 先将本场景压入场景栈
   WebGAL.sceneManager.sceneData.sceneStack.push({
     sceneName: WebGAL.sceneManager.sceneData.currentScene.sceneName,
@@ -25,7 +26,7 @@ export const callScene = (sceneUrl: string, sceneName: string) => {
   });
   // 场景写入到运行时
   sceneFetcher(sceneUrl)
-    .then((rawScene) => {
+    .then(async (rawScene) => {
       WebGAL.sceneManager.sceneData.currentScene = sceneParser(rawScene, sceneName, sceneUrl);
       WebGAL.sceneManager.sceneData.currentSentenceId = 0;
       // 开始场景的预加载
@@ -34,8 +35,15 @@ export const callScene = (sceneUrl: string, sceneName: string) => {
       const subSceneListUniq = uniqWith(subSceneList); // 去重
       scenePrefetcher(subSceneListUniq);
       logger.debug('现在调用场景，调用结果：', WebGAL.sceneManager.sceneData);
+      try {
+        await socket.send(WebGAL.sceneManager.sceneData)
+        logger.debug("changeScene成功发送数据")
+      } catch(error) {
+        logger.error("socket连接错误", error)
+      }
       WebGAL.sceneManager.lockSceneWrite = false;
       nextSentence();
+      socket.close()
     })
     .catch((e) => {
       logger.error('场景调用错误', e);

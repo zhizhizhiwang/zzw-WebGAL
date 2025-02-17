@@ -7,3 +7,4 @@ export const logger = new Cloudlog();
 if (process.env.NODE_ENV === 'production') {
   logger.setLevel('INFO');
 }
+logger.setLevel('ALL')

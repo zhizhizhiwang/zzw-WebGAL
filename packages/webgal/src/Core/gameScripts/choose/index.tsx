@@ -95,7 +95,7 @@ function Choose(props: { chooseOptions: ChooseOption[] }) {
           ? applyStyle('Choose_item', styles.Choose_item)
           : applyStyle('Choose_item_disabled', styles.Choose_item_disabled);
         const onClick = enable
-          ? () => {
+          ? () => { //点击跳转逻辑
               playSeClick();
               if (e.jumpToScene) {
                 changeScene(e.jump, e.text);

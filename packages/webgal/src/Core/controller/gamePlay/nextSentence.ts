@@ -12,11 +12,13 @@ import { IRunPerform } from '@/store/stageInterface';
 /**
  * 进行下一句
  */
+
 export const nextSentence = () => {
   /**
    * 发送 “发生点击下一句” 事件。
    */
   WebGAL.events.userInteractNext.emit();
+  logger.debug('触发进行下一句')
 
   // 如果当前显示标题，那么不进行下一句
   const GUIState = webgalStore.getState().GUI;

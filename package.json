@@ -24,5 +24,9 @@
   "private": true,
   "engines": {
     "node": "18"
+  },
+  "dependencies": {
+    "rimraf": "^6.0.1",
+    "ws": "^8.18.0"
   }
 }
